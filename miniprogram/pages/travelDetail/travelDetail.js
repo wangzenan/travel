@@ -5,7 +5,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    travelId:""
+    travelId:"",
+    queryResult:[]
   },
 
   /**
@@ -24,7 +25,7 @@ Page({
       success: res => {
         this.setData({
           //queryResult: JSON.stringify(res.data, null, 2)
-          queryResult:res.data
+          queryResult:res.data[0]
           //title:res.data.title
         })
         console.log('[数据库] [查询记录] 成功: ', res)
