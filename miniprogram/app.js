@@ -9,7 +9,9 @@ App({
         traceUser: true,
       })
     }
-
+    var that = this;
+   
+    
     this.globalData = {}
   }
 })

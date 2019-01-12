@@ -10,7 +10,8 @@
     "pages/chooseLib/chooseLib",
     "pages/myInfo/myInfo",
     "pages/message/message",
-    "pages/release/release"
+    "pages/release/release",
+    "pages/travelDetail/travelDetail"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
@@ -27,7 +28,6 @@
         "selectedIconPath": "pages/images/icon_tabBar_press.png",
         "iconPath": "pages/images/icon_tabBar.png"
       },
-    
       {
         "pagePath": "pages/message/message",
         "text": "消息",

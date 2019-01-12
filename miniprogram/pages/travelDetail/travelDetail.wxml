@@ -1,0 +1,24 @@
+<view class="page">
+    <text>{{travelId}}</text>
+    <text>{{queryResult}}</text>
+    <view class="page__hd">
+        <view class="page__title">List</view>
+        <view class="page__desc">列表</view>
+    </view>
+    <view class="page__bd">
+        <view class="weui-cells__title">带说明的列表项</view>
+        <view class="weui-cells weui-cells_after-title" wx >
+            <view class="weui-cell" >
+                <view class="weui-cell__bd">标题</view>
+                <view class="weui-cell__ft">{{queryResult.title}}</view>
+                <text>{{queryResult.title}}</text>
+            </view>
+            <view class="weui-cell">
+                <view class="weui-cell__bd">标题</view>
+                <view class="weui-cell__ft">{{item.dest}}</view>
+            </view>
+        </view>
+    </view>
+
+        
+</view>
