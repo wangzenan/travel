@@ -10,8 +10,19 @@ App({
       })
     }
     var that = this;
-   
+    wx.cloud.callFunction({
+      name: 'login',
+      complete: res => {
+        console.log('callFunction test result: ',res, res.result.openid)
+        this.globalData.openid = res.result.openid
+        console.log(this.globalData.openid)
+      }
+    })
     
-    this.globalData = {}
+    this.globalData = {
+      openid:'',
+      appid:'wx0e247236e1f2f06d',
+      secret:'343538ed469c055b286d679ce2389bc0'
+    }
   }
 })

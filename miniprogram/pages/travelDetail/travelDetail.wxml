@@ -27,7 +27,7 @@
             </view>
             <view class="weui-cell">
                 <view class="weui-cell__bd">发起人</view>
-                <view class="weui-cell__ft">{{queryResult.create_id}}</view>
+                <view class="weui-cell__ft">{{createName}}</view>
             </view>
 
         </view>

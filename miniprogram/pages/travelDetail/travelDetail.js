@@ -6,7 +6,8 @@ Page({
    */
   data: {
     travelId:"",
-    queryResult:[]
+    queryResult:[],
+    
   },
 
   /**
@@ -15,7 +16,8 @@ Page({
   onLoad: function (options) {
     this.setData({
       travelId: options.id,
-      queryResult:[]
+      createId:"",
+      createName: ""
     }) 
     const db = wx.cloud.database()
     // 查询当前用户所有的 counters
@@ -25,9 +27,34 @@ Page({
       success: res => {
         this.setData({
           //queryResult: JSON.stringify(res.data, null, 2)
-          queryResult:res.data[0]
+          queryResult:res.data[0],
           //title:res.data.title
+          createId:res.data[0].create_id,          
         })
+        db.collection('user').where({
+          _id: this.data.createId
+        }).get({
+          success: cres => {
+            this.setData({
+              //queryResult: JSON.stringify(res.data, null, 2)
+              
+              //title:res.data.title
+              createName: cres.data[0].name
+            })
+
+
+            console.log('[数据库] [查询记录] 成功: ', cres)
+          },
+          fail: err => {
+            wx.showToast({
+              icon: 'none',
+              title: '查询记录失败'
+            })
+            console.error('[数据库] [查询记录] 失败：', err)
+          }
+        })
+
+        
         console.log('[数据库] [查询记录] 成功: ', res)
       },
       fail: err => {
@@ -38,6 +65,8 @@ Page({
         console.error('[数据库] [查询记录] 失败：', err)
       }
     })
+
+    
   },
 
   /**
