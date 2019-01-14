@@ -1,0 +1,28 @@
+<!--miniprogram/pages/modidetail/modidetail.wxml-->
+<view class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+  <view class="left">年龄：</view>
+  <input class="right" placeholder="{{queryResult.age}}" focus="{{focus}}" 
+  name="age" bindinput='ageinput'></input>
+</view>
+<view class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+  <view class="left">性别：</view>
+  <input class="right" placeholder="{{queryResult.gender}}" focus="{{focus}}"
+  name="gender" bindinput='genderinput'></input>
+</view>
+<view class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+  <view class="left">电话号码：</view>
+  <input class="right" placeholder="{{queryResult.phone_no}}" focus="{{focus}}"
+  name="phone" bindinput='phoneinput'></input>
+</view>
+<view class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+  <view class="left">学校：</view>
+  <input class="right" placeholder="{{queryResult.school_name}}" focus="{{focus}}"
+  name="school" bindinput='schinput'></input>
+</view>
+<view class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+  <view class="left">自我介绍：</view>
+  <input class="right" placeholder="{{queryResult.intro}}" focus="{{focus}}"
+  name="intro" bindinput='introinput'></input>
+</view>
+<button class="weui-btn" bindtap="onTap" type="primary">修改信息</button>
+

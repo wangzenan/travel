@@ -1,28 +1,41 @@
-// miniprogram/pages/myInfo/myInfo.js
+// miniprogram/pages/modifinfo/modifinfo.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    nickName:"",
-    avatarUrl:""
+    userid: ""
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-
   onLoad: function (options) {
-
-    var that = this;
-    wx.getUserInfo({
-      success: function (res) {
-        that.setData({
-          nickName: res.userInfo.nickName,
-          avatarUrl: res.userInfo.avatarUrl
+    this.setData({
+      userid: "XDsjFnkPDdDCJ3U-",
+      queryResult: []
+    })
+    const db = wx.cloud.database()
+    // 查询当前用户所有的 counters
+    db.collection('user').where({
+      _id: this.data.userid
+    }).get({
+      success: res => {
+        this.setData({
+          //queryResult: JSON.stringify(res.data, null, 2)
+          queryResult: res.data[0]
+          //title:res.data.title
         })
+        console.log('[数据库] [查询记录] 成功: ', res)
       },
+      fail: err => {
+        wx.showToast({
+          icon: 'none',
+          title: '查询记录失败'
+        })
+        console.error('[数据库] [查询记录] 失败：', err)
+      }
     })
   },
 
