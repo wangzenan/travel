@@ -11,7 +11,8 @@ Page({
     title:"",
     dest:'',
     date:'',
-    description:''
+    description:'',
+    
   },
   bindDateChange: function (e) {
     this.setData({
@@ -20,22 +21,48 @@ Page({
   },
   createTravel: function(e) {
     // console.log(app.globalData.openid)
-    wx.cloud.callFunction({
-      // 云函数名称
-      name: 'addtravel',
-      // 传给云函数的参数
-      data: {
-        'create_id': app.globalData.openid,
-        'des': this.data.des,
-        'dest': this.data.dest,
-        'time': this.data.time,
-        'title': this.data.title,
-      },
-      success(res) {
-        console.log(res) // 3
-      },
-      fail: console.error
-    })
+    if (this.data.des == '' || this.data.dest == '' || this.data.title == '' || this.data.date == ''){
+      wx.showModal({
+        content: '填写数据不能为空',
+        showCancel: false,
+        success: function (res) {
+          if (res.confirm) {
+            console.log('确定')
+          }
+        }
+      });
+      return
+    } else{
+      wx.cloud.callFunction({
+        // 云函数名称
+        name: 'addtravel',
+        // 传给云函数的参数
+        data: {
+          'create_id': app.globalData.openid,
+          'des': this.data.des,
+          'dest': this.data.dest,
+          'time': this.data.date,
+          'title': this.data.title,
+        },
+        success(res) {
+          console.log(res) // 3
+          wx.showModal({
+            content: '创建成功',
+            showCancel: false,
+            success: function (res) {
+              if (res.confirm) {
+                wx.navigateBack({
+                  delta:1
+                })
+              }
+            }
+          });
+        },
+        fail: console.error
+      })
+    }
+
+    
 
   },
 
