@@ -14,7 +14,12 @@ Page({
     count: null,
     queryResult: [],
   },
- 
+  handleClicks: function() {
+    wx.navigateTo({
+      url: '/pages/addtravel/addtravel',
+    })
+  }
+ ,
 
   showInput: function () {
     this.setData({

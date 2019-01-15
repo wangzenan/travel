@@ -63,6 +63,7 @@
                 </view>
             </view>
           <button  type="handleClicks" catchtap="handleClicks" class="circle" hover-class="plus-hover">
+          
             <image mode='aspectFill' src='/pages/images/new.png' plain='true' class='image'></image>
           </button>
         </view>
