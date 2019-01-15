@@ -1,4 +1,4 @@
-{
+{ "cloud":true,
   "pages": [
     "pages/browse/browse",
     "pages/index/index",

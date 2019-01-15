@@ -38,7 +38,7 @@
 
   </view>
 
-  <button bindtap='createTravel' class="weui-btn" type="primary">创建行程</button>
+  <button catchtap='createTravel' class="weui-btn" type="primary">创建行程</button>
 
 
 

@@ -1,4 +1,5 @@
 // miniprogram/pages/travelDetail/travelDetail.js
+const app=getApp()
 Page({
 
   /**
@@ -17,6 +18,27 @@ Page({
       date: e.detail.value
     })
   },
+  createTravel: function(e) {
+    // console.log(app.globalData.openid)
+    wx.cloud.callFunction({
+      // 云函数名称
+      name: 'addtravel',
+      // 传给云函数的参数
+      data: {
+        'create_id': app.globalData.openid,
+        'des': this.data.des,
+        'dest': this.data.dest,
+        'time': this.data.time,
+        'title': this.data.title,
+      },
+      success(res) {
+        console.log(res) // 3
+      },
+      fail: console.error
+    })
+
+  },
+
   titleInput:function(e){
     this.setData({
       title:e.detail.value
@@ -66,9 +88,7 @@ Page({
       }
     })
   },
-  createTravel: function(e){
-    console.log(this.data.description)
-  },
+  
 
   /**
    * 生命周期函数--监听页面初次渲染完成
