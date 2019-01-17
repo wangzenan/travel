@@ -1,4 +1,5 @@
 // miniprogram/pages/modidetail/modidetail.js
+const app=getApp()
 Page({
 
   /**
@@ -18,7 +19,7 @@ Page({
    */
   onLoad: function (options) {
     this.setData({
-      userid: "XDsjFnkPDdDCJ3U-",
+      userid: options.userid,
       queryResult: []
     })
     const db = wx.cloud.database()
@@ -118,30 +119,34 @@ Page({
     })
   },
   onTap: function (e) {
-    const db = wx.cloud.database()
-    db.collection('user').doc('XDsjFnkPDdDCJ3U-').update({
-      data:{
-        age: this.data.age
-        // gender: this.data.gender,
-        // intro: this.data.intro,
-        // phone_no: this.data.phone,
-        // school_name: this.data.sch
+    wx.cloud.callFunction({
+      // 云函数名称
+      //name: 'updateUser',
+      name:'updateUser',
+      // 传给云函数的参数
+      data: {
+        'openid' : this.data.userid,
+        'age' : this.data.age,
+        'gender' : this.data.gender,
+        'intro' : this.data.intro,
+        'phoneNo' : this.data.phone,
+        'schoolName' : this.data.sch,
       },
-      success: res => {
-        this.setData({
-          //queryResult: JSON.stringify(res.data, null, 2)
-          age: this.data.age
-          //title:res.data.title
-        })
-        console.log('[数据库] [修改记录] 成功: ', res)
+      success(res) {
+        console.log(res) // 3
+        wx.showModal({
+          content: '修改成功',
+          showCancel: false,
+          success: function (res) {
+            if (res.confirm) {
+              wx.navigateBack({
+                delta: 1
+              })
+            }
+          }
+        });
       },
-      fail: err => {
-        wx.showToast({
-          icon: 'none',
-          title: '修改记录失败'
-        })
-        console.error('[数据库] [修改记录] 失败：', err)
-      }
+      fail: console.error
     })
     wx.showToast({
       title: this.data.age,

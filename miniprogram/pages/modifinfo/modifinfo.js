@@ -13,7 +13,7 @@ Page({
    */
   onLoad: function (options) {
     this.setData({
-      userid: "XDsjFnkPDdDCJ3U-",
+      userid: options.openid,
       queryResult: []
     })
     const db = wx.cloud.database()
