@@ -1,4 +1,5 @@
 // miniprogram/pages/travelDetail/travelDetail.js
+const app = getApp()
 Page({
 
   /**
@@ -7,7 +8,35 @@ Page({
   data: {
     travelId:"",
     queryResult:[],
-    
+    attendName:[]
+  },
+  handleClicks: function () {
+    if(app.globalData.openid){
+      wx.cloud.callFunction({
+        // 云函数名称
+        name: 'updateTravel',
+        // 传给云函数的参数
+        data: {
+          'openid': app.globalData.openid,
+          'travelId':this.data.travelId
+        },
+        success(res) {
+          console.log(res) // 3
+          wx.showModal({
+            content: '加入成功',
+            showCancel: false,
+            success: function (res) {
+              if (res.confirm) {
+                wx.navigateBack({
+                  delta: 1
+                })
+              }
+            }
+          });
+        },
+        fail: console.error
+      })
+    }
   },
 
   /**
@@ -17,7 +46,8 @@ Page({
     this.setData({
       travelId: options.id,
       createId:"",
-      createName: ""
+      createName: "",
+      openid: app.globalData.openid
     }) 
     const db = wx.cloud.database()
     // 查询当前用户所有的 counters
@@ -26,23 +56,17 @@ Page({
     }).get({
       success: res => {
         this.setData({
-          //queryResult: JSON.stringify(res.data, null, 2)
           queryResult:res.data[0],
-          //title:res.data.title
-          createId:res.data[0].create_id,          
+          createId:res.data[0].create_id,  
+          //appendList:res.data[0].append_list        
         })
         db.collection('user').where({
           _id: this.data.createId
         }).get({
           success: cres => {
             this.setData({
-              //queryResult: JSON.stringify(res.data, null, 2)
-              
-              //title:res.data.title
               createName: cres.data[0].name
             })
-
-
             console.log('[数据库] [查询记录] 成功: ', cres)
           },
           fail: err => {
@@ -53,8 +77,28 @@ Page({
             console.error('[数据库] [查询记录] 失败：', err)
           }
         })
-
         
+        for (var attend in this.data.queryResult.attend_list) {
+          console.log(this.data.queryResult.attend_list[attend])
+          db.collection('user').where({
+            _id: this.data.queryResult.attend_list[attend]
+          }).get({
+            success: ares => {
+              this.setData({
+                attendName: this.data.attendName.concat(ares.data[0].name)
+              })
+              console.log('[数据库] [查询记录] 成功: ', ares.data[0].name)
+            },
+            fail: err => {
+              wx.showToast({
+                icon: 'none',
+                title: '查询记录失败'
+              })
+              console.error('[数据库] [查询记录] 失败：', err)
+            }
+
+          })
+        }   
         console.log('[数据库] [查询记录] 成功: ', res)
       },
       fail: err => {
@@ -65,6 +109,8 @@ Page({
         console.error('[数据库] [查询记录] 失败：', err)
       }
     })
+    
+
 
     
   },
@@ -80,7 +126,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+ 
   },
 
   /**
