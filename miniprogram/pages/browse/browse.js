@@ -47,24 +47,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    const db = wx.cloud.database()
-    const travelInfo = db.collection('travel_info')
-    travelInfo.get({
-      success: res => {
-        this.setData({
-          //queryResult: JSON.stringify(res.data, null, 2)
-          queryResult:res.data
-        })
-        console.log('[数据库] [查询记录] 成功: ', res)
-      },
-      fail: err => {
-        wx.showToast({
-          icon: 'none',
-          title: '查询记录失败'
-        })
-        console.error('[数据库] [查询记录] 失败：', err)
-      }
-    })
+    
   },
 
   /**
@@ -78,7 +61,24 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    
+    const db = wx.cloud.database()
+    const travelInfo = db.collection('travel_info')
+    travelInfo.get({
+      success: res => {
+        this.setData({
+          //queryResult: JSON.stringify(res.data, null, 2)
+          queryResult: res.data
+        })
+        console.log('[数据库] [查询记录] 成功: ', res)
+      },
+      fail: err => {
+        wx.showToast({
+          icon: 'none',
+          title: '查询记录失败'
+        })
+        console.error('[数据库] [查询记录] 失败：', err)
+      }
+    })
   },
 
   /**

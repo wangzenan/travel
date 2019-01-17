@@ -11,7 +11,7 @@ exports.main = async (event, context) => {
     return await db.collection('travel_info').doc(id).update({
       data: {
         
-        'attend_list': db.command.unshift([[openid]])
+        'attend_list': db.command.push(openid)
       }
     })
   } catch (e) {
