@@ -1,4 +1,5 @@
 // miniprogram/pages/myInfo/myInfo.js
+const app = getApp()
 Page({
 
   /**
@@ -15,7 +16,9 @@ Page({
    */
 
   onLoad: function (options) {
-
+    this.setData({
+      openid: app.globalData.openid
+    })
     var that = this;
     wx.getUserInfo({
       success: function (res) {
@@ -26,6 +29,7 @@ Page({
         })
       },
     })
+    console.log('[数据库] [查询记录] 成功: ', this.data.openid)
   },
 
   /**
@@ -76,42 +80,42 @@ Page({
   onShareAppMessage: function () {
 
   },
-  nextStep: function () {
-    // 在第一步，需检查是否有 openid，如无需获取
-    if (this.data.step === 1 && !this.data.openid) {
-      wx.cloud.callFunction({
-        name: 'login',
-        data: {},
-        success: res => {
-          app.globalData.openid = res.result.openid
-          this.setData({
-            step: 2,
-            openid: res.result.openid
-          })
-        },
-        fail: err => {
-          wx.showToast({
-            icon: 'none',
-            title: '获取 openid 失败，请检查是否有部署 login 云函数',
-          })
-          console.log('[云函数] [login] 获取 openid 失败，请检查是否有部署云函数，错误信息：', err)
-        }
-      })
-    } else {
-      const callback = this.data.step !== 6 ? function () { } : function () {
-        console.group('数据库文档')
-        console.log('https://developers.weixin.qq.com/miniprogram/dev/wxcloud/guide/database.html')
-        console.groupEnd()
-      }
+  // nextStep: function () {
+  //   // 在第一步，需检查是否有 openid，如无需获取
+  //   if (this.data.step === 1 && !this.data.openid) {
+  //     wx.cloud.callFunction({
+  //       name: 'login',
+  //       data: {},
+  //       success: res => {
+  //         app.globalData.openid = res.result.openid
+  //         this.setData({
+  //           step: 2,
+  //           openid: res.result.openid
+  //         })
+  //       },
+  //       fail: err => {
+  //         wx.showToast({
+  //           icon: 'none',
+  //           title: '获取 openid 失败，请检查是否有部署 login 云函数',
+  //         })
+  //         console.log('[云函数] [login] 获取 openid 失败，请检查是否有部署云函数，错误信息：', err)
+  //       }
+  //     })
+  //   } else {
+  //     const callback = this.data.step !== 6 ? function () { } : function () {
+  //       console.group('数据库文档')
+  //       console.log('https://developers.weixin.qq.com/miniprogram/dev/wxcloud/guide/database.html')
+  //       console.groupEnd()
+  //     }
 
-      this.setData({
-        step: this.data.step + 1
-      }, callback)
-    }
-  },
-  prevStep: function () {
-    this.setData({
-      step: this.data.step - 1
-    })
-  },
+  //     this.setData({
+  //       step: this.data.step + 1
+  //     }, callback)
+  //   }
+  // },
+  // prevStep: function () {
+  //   this.setData({
+  //     step: this.data.step - 1
+  //   })
+  // },
 })

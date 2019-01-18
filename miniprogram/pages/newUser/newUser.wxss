@@ -1,0 +1,12 @@
+/* miniprogram/pages/newUser/newUser.wxss */
+.right{
+  display: flex;
+  justify-content: flex-end;
+  flex-grow: 1;
+  margin-right: 20rpx;
+}
+.left{
+  display: flex;
+  justify-content: flex-start;
+  flex-grow: 1;
+}

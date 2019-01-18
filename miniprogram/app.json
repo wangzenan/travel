@@ -1,4 +1,5 @@
-{ "cloud":true,
+{
+  "cloud": true,
   "pages": [
     "pages/browse/browse",
     "pages/index/index",
@@ -12,9 +13,10 @@
     "pages/message/message",
     "pages/release/release",
     "pages/travelDetail/travelDetail",
-	"pages/modifinfo/modifinfo",
+    "pages/modifinfo/modifinfo",
     "pages/modidetail/modidetail",
-    "pages/addtravel/addtravel"
+    "pages/addtravel/addtravel",
+    "pages/newUser/newUser"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",

@@ -6,12 +6,18 @@ Page({
    * 页面的初始数据
    */
   data: {
+    id:"",
     userid: "",
     age:"",
     gender:"",
     phone:"",
     sch:"",
-    intro:""
+    intro:"",
+    oa:"",
+    og:"",
+    op:"",
+    os:"",
+    oi:""
   },
 
   /**
@@ -19,18 +25,24 @@ Page({
    */
   onLoad: function (options) {
     this.setData({
-      userid: options.userid,
+      userid: options.id,
       queryResult: []
     })
     const db = wx.cloud.database()
     // 查询当前用户所有的 counters
     db.collection('user').where({
-      _id: this.data.userid
+      openid: this.data.userid
     }).get({
       success: res => {
         this.setData({
           //queryResult: JSON.stringify(res.data, null, 2)
-          queryResult: res.data[0]
+          queryResult: res.data[0],
+          oa:res.data[0].age,
+          og:res.data[0].gender,
+          oi:res.data[0].intro,
+          op: res.data[0].phone_no,
+          os: res.data[0].school_name,
+          id:res.data[0]._id
           //title:res.data.title
         })
         console.log('[数据库] [查询记录] 成功: ', res)
@@ -119,35 +131,63 @@ Page({
     })
   },
   onTap: function (e) {
-    wx.cloud.callFunction({
-      // 云函数名称
-      //name: 'updateUser',
-      name:'updateUser',
-      // 传给云函数的参数
-      data: {
-        'openid' : this.data.userid,
-        'age' : this.data.age,
-        'gender' : this.data.gender,
-        'intro' : this.data.intro,
-        'phoneNo' : this.data.phone,
-        'schoolName' : this.data.sch,
-      },
-      success(res) {
-        console.log(res) // 3
-        wx.showModal({
-          content: '修改成功',
-          showCancel: false,
-          success: function (res) {
-            if (res.confirm) {
-              wx.navigateBack({
-                delta: 1
-              })
-            }
+    // if (this.data.age == ''){
+    //   this.data.age == this.data.oa
+    // }
+    // if (this.data.gender == '') {
+    //   this.data.gender == this.data.og
+    // }
+    // if (this.data.phone == '') {
+    //   this.data.phone == this.data.op
+    // }
+    // if (this.data.sch == '') {
+    //   this.data.sch == this.data.os
+    // }
+    // if (this.data.intro == '') {
+    //   this.data.intro == this.data.oi
+    // }
+    if (this.data.age == '' && this.data.gender == '' && this.data.phone == '' && this.data.sch == '' && this.data.intro=='') {
+      wx.showModal({
+        content: '填写数据不能为空',
+        showCancel: false,
+        success: function (res) {
+          if (res.confirm) {
+            console.log('确定')
           }
-        });
-      },
-      fail: console.error
-    })
+        }
+      });
+      return
+    } else {
+      wx.cloud.callFunction({
+        // 云函数名称
+        //name: 'updateUser',
+        name:'updateUser',
+        // 传给云函数的参数
+        data: {
+          'openid': this.data._id,
+          'age': this.data.age == '' ? this.data.oa: this.data.age,
+          'gender': this.data.gender==''? this.data.og : this.data.gender,
+          'intro': this.data.intro=='' ? this.data.oi : this.data.intro,
+          'phoneNo': this.data.phone=='' ? this.data.op : this.data.phone,
+          'schoolName': this.data.sch ==''? this.data.os : this.data.sch,
+        },
+        success(res) {
+          console.log(res) // 3
+          wx.showModal({
+            content: '修改成功',
+            showCancel: false,
+            success: function (res) {
+              if (res.confirm) {
+                wx.navigateBack({
+                  delta: 2
+                })
+              }
+            }
+          });
+        },
+        fail: console.error
+      })
+    }
     wx.showToast({
       title: this.data.age,
       icon: 'success',

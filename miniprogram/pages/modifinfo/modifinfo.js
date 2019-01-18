@@ -13,13 +13,13 @@ Page({
    */
   onLoad: function (options) {
     this.setData({
-      userid: options.openid,
+      userid: options.id,
       queryResult: []
     })
     const db = wx.cloud.database()
     // 查询当前用户所有的 counters
     db.collection('user').where({
-      _id: this.data.userid
+      openid: this.data.userid
     }).get({
       success: res => {
         this.setData({
