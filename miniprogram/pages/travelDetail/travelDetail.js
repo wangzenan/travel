@@ -61,7 +61,7 @@ Page({
           //appendList:res.data[0].append_list        
         })
         db.collection('user').where({
-          _id: this.data.createId
+          openid: this.data.createId
         }).get({
           success: cres => {
             this.setData({
@@ -81,7 +81,7 @@ Page({
         for (var attend in this.data.queryResult.attend_list) {
           console.log(this.data.queryResult.attend_list[attend])
           db.collection('user').where({
-            _id: this.data.queryResult.attend_list[attend]
+            openid: this.data.queryResult.attend_list[attend]
           }).get({
             success: ares => {
               this.setData({
