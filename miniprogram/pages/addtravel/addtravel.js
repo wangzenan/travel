@@ -12,6 +12,7 @@ Page({
     dest:'',
     date:'',
     des:'',
+    attend_list: {},
     
   },
   bindDateChange: function (e) {
@@ -20,6 +21,7 @@ Page({
     })
   },
   createTravel: function(e) {
+    
     // console.log(app.globalData.openid)
     if (this.data.des == '' || this.data.dest == '' || this.data.title == '' || this.data.date == ''){
       wx.showModal({
@@ -33,6 +35,7 @@ Page({
       });
       return
     } else{
+    
       wx.cloud.callFunction({
         // 云函数名称
         name: 'addtravel',
@@ -43,6 +46,8 @@ Page({
           'dest': this.data.dest,
           'time': this.data.date,
           'title': this.data.title,
+          'attend_list': [].push(app.globalData.openid)
+          
         },
         success(res) {
           console.log(res) // 3

@@ -37,9 +37,22 @@ Page({
         fail: console.error
       })
     }
-    else{
+    else if (app.globalData.openid == this.data.queryResult.create_id){
       wx.showModal({
-        content: '您已加入',
+        content: '您是发起人无法加入',
+        showCancel: false,
+        success(res) {
+          if (res.confirm) {
+            wx.navigateBack({
+              delta: 0
+            })
+          }
+        }
+      });
+    }
+    else {
+      wx.showModal({
+        content: '不要重复加入',
         showCancel: false,
         success(res) {
           if (res.confirm) {

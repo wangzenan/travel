@@ -2,6 +2,7 @@
 const cloud = require('wx-server-sdk')
 cloud.init()
 const db = cloud.database()
+
 // 云函数入口函数
 exports.main = async (event, context) => {
 
@@ -10,11 +11,11 @@ exports.main = async (event, context) => {
   const dest = event.dest
   const time = event.time
   const title = event.title
-
+  const attend_list = event.attend_list
   try {
     return await db.collection('travel_info').add({
       data: {
-        'attend_list': db.command.push(create_id),
+        
         'create_id': create_id,
         'des': des,
         'dest': dest,
