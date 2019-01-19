@@ -14,7 +14,7 @@ exports.main = async (event, context) => {
   try {
     return await db.collection('travel_info').add({
       data: {
-        'attend_list': db.command.push(create_id),
+        'attend_list': [],
         'create_id': create_id,
         'des': des,
         'dest': dest,
