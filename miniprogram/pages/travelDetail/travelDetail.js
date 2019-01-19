@@ -11,7 +11,7 @@ Page({
     attendName:[]
   },
   handleClicks: function () {
-    if(app.globalData.openid){
+    if (app.globalData.openid && this.data.queryResult.attend_list.indexOf(app.globalData.openid)==-1){
       wx.cloud.callFunction({
         // 云函数名称
         name: 'updateTravel',
@@ -36,6 +36,19 @@ Page({
         },
         fail: console.error
       })
+    }
+    else{
+      wx.showModal({
+        content: '您已加入',
+        showCancel: false,
+        success(res) {
+          if (res.confirm) {
+            wx.navigateBack({
+              delta: 0
+            })
+          } 
+        }       
+      });
     }
   },
 

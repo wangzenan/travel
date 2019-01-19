@@ -12,7 +12,7 @@ Page({
     title:"",
     dest:'',
     date:'',
-    description:'',
+    des:'',
     
   },
   bindDateChange: function (e) {
@@ -74,6 +74,8 @@ Page({
         },
         fail: console.error
       })
+      console.log("asfaxxcaf")
+
     }
 
     
@@ -94,7 +96,7 @@ Page({
   },
   descriptionInput: function (e) {
     this.setData({
-      description: e.detail.value
+      des: e.detail.value
     })
 
   },
