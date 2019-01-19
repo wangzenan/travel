@@ -1,5 +1,6 @@
 // miniprogram/pages/travelDetail/travelDetail.js
-const app=getApp()
+const app=getApp();
+var util = require('../../utils/utils.js');  
 Page({
 
   /**
@@ -56,6 +57,19 @@ Page({
             showCancel: false,
             success: function (res) {
               if (res.confirm) {
+                const time_now = util.formatTime(new Date());
+                console.log(time_now)
+                wx.cloud.callFunction({
+                  name: 'addMessage',
+                  // 传给云函数的参数
+                  data: {
+                    'content': '',
+                    'dest_id': '',
+                    'source_id': app.globalData.openid,
+                    'time': time_now
+                  }
+                })
+
                 wx.navigateBack({
                   delta:1
                 })
@@ -65,6 +79,8 @@ Page({
         },
         fail: console.error
       })
+      console.log("asfaxxcaf")
+
     }
 
     

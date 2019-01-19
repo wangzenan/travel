@@ -10,7 +10,7 @@ exports.main = async (event, context) => {
   var source_id = event.source_id
   var time = event.time
   try {
-    return await db.collection('message').add({
+    return await db.collection('massage').add({
       data: {
         content: content,
         dest_id: dest_id,

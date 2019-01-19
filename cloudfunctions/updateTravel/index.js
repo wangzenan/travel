@@ -9,6 +9,7 @@ exports.main = async (event, context) => {
   var id=event.travelId
   try {
     return await db.collection('travel_info').doc(id).update({
+      
       data: {
         
         'attend_list': db.command.push(openid)
