@@ -60,6 +60,8 @@ Page({
         },
         fail: console.error
       })
+      console.log("asfaxxcaf")
+
     }
 
     

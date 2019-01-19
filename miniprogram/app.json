@@ -16,7 +16,8 @@
     "pages/modifinfo/modifinfo",
     "pages/modidetail/modidetail",
     "pages/addtravel/addtravel",
-    "pages/newUser/newUser"
+    "pages/newUser/newUser",
+    "pages/addFun/addFun"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
