@@ -63,9 +63,9 @@ Page({
                   name: 'addMessage',
                   // 传给云函数的参数
                   data: {
-                    'content': '',
-                    'dest_id': '',
-                    'source_id': app.globalData.openid,
+                    'content': '创建行程成功',
+                    'dest_id': app.globalData.openid,
+                    'source_id': '',
                     'time': time_now
                   }
                 })
