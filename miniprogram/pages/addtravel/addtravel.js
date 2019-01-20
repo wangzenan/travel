@@ -36,7 +36,8 @@ Page({
       });
       return
     } else{
-    
+      const dest_now = this.data.dest
+      console.log('dest：',dest_now)
       wx.cloud.callFunction({
         // 云函数名称
         name: 'addtravel',
@@ -58,6 +59,8 @@ Page({
               if (res.confirm) {
                 const time_now = util.formatTime(new Date());
                 console.log(time_now)
+                
+
                 wx.cloud.callFunction({
                   name: 'addMessage',
                   // 传给云函数的参数
@@ -65,7 +68,8 @@ Page({
                     'content': '创建行程成功',
                     'dest_id': app.globalData.openid,
                     'source_id': '',
-                    'time': time_now
+                    'time': time_now,
+                    'dest': dest_now,
                   }
                 })
 
