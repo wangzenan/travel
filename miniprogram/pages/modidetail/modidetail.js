@@ -1,43 +1,29 @@
 // miniprogram/pages/modidetail/modidetail.js
-const app=getApp()
+const app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    id:"",
+    id: "",
     userid: "",
-    age:"",
-    gender:"",
-    phone:"",
-    sch:"",
-    intro:"",
-    oa:"",
-    og:"",
-    op:"",
-    os:"",
-    oi:""
+    age: "",
+    gender: "",
+    phone: "",
+    sch: "",
+    intro: "",
+    oa: "",
+    og: "",
+    op: "",
+    os: "",
+    oi: ""
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function (options) {
     this.setData({
       userid: options.id,
       queryResult: []
@@ -69,6 +55,20 @@ Page({
         console.error('[数据库] [查询记录] 失败：', err)
       }
     })
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function (options) {
+
   },
 
   /**
@@ -131,32 +131,32 @@ Page({
     })
   },
   onTap: function (e) {
-    if (this.data.age == ''){
-      this.data.age == this.data.oa
-    } else{
-      this.data.age == this.data.age
-    }
-    if (this.data.gender == '') {
-      this.data.gender == this.data.og
-    } else{
-      this.data.gender == this.data.gender
-    }
-    if (this.data.phone == '') {
-      this.data.phone == this.data.op
-    }else{
-      this.data.phone == this.data.phone
-    }
-    if (this.data.sch == '') {
-      this.data.sch == this.data.os
-    }else{
-      this.data.sch == this.data.sch
-    }
-    if (this.data.intro == '') {
-      this.data.intro == this.data.oi
-    } else{
-      this.data.intro == this.data.intro
-    }
-    if (this.data.age == '' && this.data.gender == '' && this.data.phone == '' && this.data.sch == '' && this.data.intro=='') {
+    // if (this.data.age == ''){
+    //   this.data.age == this.data.oa
+    // } else{
+    //   this.data.age == this.data.age
+    // }
+    // if (this.data.gender == '') {
+    //   this.data.gender == this.data.og
+    // } else{
+    //   this.data.gender == this.data.gender
+    // }
+    // if (this.data.phone == '') {
+    //   this.data.phone == this.data.op
+    // }else{
+    //   this.data.phone == this.data.phone
+    // }
+    // if (this.data.sch == '') {
+    //   this.data.sch == this.data.os
+    // }else{
+    //   this.data.sch == this.data.sch
+    // }
+    // if (this.data.intro == '') {
+    //   this.data.intro == this.data.oi
+    // } else{
+    //   this.data.intro == this.data.intro
+    // }
+    if (this.data.age == '' && this.data.gender == '' && this.data.phone == '' && this.data.sch == '' && this.data.intro == '') {
       wx.showModal({
         content: '填写数据不能为空',
         showCancel: false,
@@ -171,10 +171,10 @@ Page({
       wx.cloud.callFunction({
         // 云函数名称
         //name: 'updateUser',
-        name:'updateUser',
+        name: 'updateUser',
         // 传给云函数的参数
         data: {
-          'openid': this.data._id,
+          'openid': this.data.id,
           'age': this.data.age,
           'gender': this.data.gender,
           'intro': this.data.intro,

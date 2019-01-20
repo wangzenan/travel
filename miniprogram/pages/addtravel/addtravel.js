@@ -1,28 +1,27 @@
-// miniprogram/pages/travelDetail/travelDetail.js
-const app=getApp();
-var util = require('../../utils/utils.js');  
+const app = getApp();
+var util = require('../../utils/utils.js');
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    travelId:"",
-    queryResult:[],
-    title:"",
-    dest:'',
-    date:'',
-    des:'',
-    
+    travelId: "",
+    queryResult: [],
+    title: "",
+    dest: '',
+    date: '',
+    des: '',
+
   },
   bindDateChange: function (e) {
     this.setData({
       date: e.detail.value
     })
   },
-  createTravel: function(e) {
+  createTravel: function (e) {
     // console.log(app.globalData.openid)
-    if (this.data.des == '' || this.data.dest == '' || this.data.title == '' || this.data.date == ''){
+    if (this.data.des == '' || this.data.dest == '' || this.data.title == '' || this.data.date == '') {
       wx.showModal({
         content: '填写数据不能为空',
         showCancel: false,
@@ -33,7 +32,8 @@ Page({
         }
       });
       return
-    } else{
+    } else {
+      const dest_now = this.data.dest
       wx.cloud.callFunction({
         // 云函数名称
         name: 'addtravel',
@@ -61,12 +61,13 @@ Page({
                     'content': '创建行程成功',
                     'dest_id': app.globalData.openid,
                     'source_id': '',
-                    'time': time_now
+                    'time': time_now,
+                    'dest': dest_now
                   }
                 })
 
                 wx.navigateBack({
-                  delta:1
+                  delta: 1
                 })
               }
             }
@@ -78,15 +79,15 @@ Page({
 
     }
 
-    
+
 
   },
 
-  titleInput:function(e){
+  titleInput: function (e) {
     this.setData({
-      title:e.detail.value
+      title: e.detail.value
     })
-    
+
   },
   destInput: function (e) {
     this.setData({
@@ -107,8 +108,8 @@ Page({
   onLoad: function (options) {
     this.setData({
       travelId: options.id,
-      queryResult:[]
-    }) 
+      queryResult: []
+    })
     const db = wx.cloud.database()
     // 查询当前用户所有的 counters
     db.collection('travel_info').where({
@@ -117,7 +118,7 @@ Page({
       success: res => {
         this.setData({
           //queryResult: JSON.stringify(res.data, null, 2)
-          queryResult:res.data[0]
+          queryResult: res.data[0]
           //title:res.data.title
         })
         console.log('[数据库] [查询记录] 成功: ', res)
@@ -131,7 +132,7 @@ Page({
       }
     })
   },
-  
+
 
   /**
    * 生命周期函数--监听页面初次渲染完成
