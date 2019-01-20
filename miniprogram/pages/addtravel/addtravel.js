@@ -47,7 +47,6 @@ Page({
           'dest': this.data.dest,
           'time': this.data.date,
           'title': this.data.title,
-          'attend_list': [].push(app.globalData.openid)
           
         },
         success(res) {

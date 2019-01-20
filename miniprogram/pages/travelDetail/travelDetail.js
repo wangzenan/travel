@@ -1,5 +1,6 @@
 // miniprogram/pages/travelDetail/travelDetail.js
 const app = getApp()
+var util = require('../../utils/utils.js');  
 Page({
 
   /**
@@ -11,7 +12,7 @@ Page({
     attendName:[]
   },
   handleClicks: function () {
-    if (app.globalData.openid && this.data.queryResult.attend_list.indexOf(app.globalData.openid)==-1){
+    if (app.globalData.openid != this.data.queryResult.create_id && app.globalData.openid && this.data.queryResult.attend_list.indexOf(app.globalData.openid)==-1){
       wx.cloud.callFunction({
         // 云函数名称
         name: 'updateTravel',
@@ -27,8 +28,17 @@ Page({
             showCancel: false,
             success: function (res) {
               if (res.confirm) {
-                wx.navigateBack({
-                  delta: 1
+                const time_now = util.formatTime(new Date());
+                console.log(time_now)
+                wx.cloud.callFunction({
+                  name: 'addMessage',
+                  // 传给云函数的参数
+                  data: {
+                    'content': '加入行程成功',
+                    'dest_id': app.globalData.openid,
+                    'source_id': '',
+                    'time': time_now
+                  }
                 })
               }
             }
@@ -39,7 +49,7 @@ Page({
     }
     else if (app.globalData.openid == this.data.queryResult.create_id){
       wx.showModal({
-        content: '您是发起人无法加入',
+        content: '您是发起人无法重复加入',
         showCancel: false,
         success(res) {
           if (res.confirm) {

@@ -10,8 +10,7 @@ exports.main = async (event, context) => {
   try {
     return await db.collection('travel_info').doc(id).update({
       
-      data: {
-        
+      data: { 
         'attend_list': db.command.push(openid)
       }
     })

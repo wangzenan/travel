@@ -14,8 +14,8 @@ exports.main = async (event, context) => {
   const attend_list = event.attend_list
   try {
     return await db.collection('travel_info').add({
-      data: {
-        
+      data: { 
+        'attend_list':[],     
         'create_id': create_id,
         'des': des,
         'dest': dest,
