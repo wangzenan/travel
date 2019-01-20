@@ -34,6 +34,7 @@ Page({
       });
       return
     } else{
+      const dest_now = this.data.dest
       wx.cloud.callFunction({
         // 云函数名称
         name: 'addtravel',
@@ -61,7 +62,8 @@ Page({
                     'content': '创建行程成功',
                     'dest_id': app.globalData.openid,
                     'source_id': '',
-                    'time': time_now
+                    'time': time_now,
+                    'dest': dest_now
                   }
                 })
 
