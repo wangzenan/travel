@@ -1,6 +1,5 @@
 // miniprogram/pages/travelDetail/travelDetail.js
 const app = getApp()
-var util = require('../../utils/utils.js');  
 Page({
 
   /**
@@ -12,7 +11,7 @@ Page({
     attendName:[]
   },
   handleClicks: function () {
-    if (app.globalData.openid != this.data.queryResult.create_id && app.globalData.openid && this.data.queryResult.attend_list.indexOf(app.globalData.openid)==-1){
+    if (app.globalData.openid && this.data.queryResult.attend_list.indexOf(app.globalData.openid)==-1){
       wx.cloud.callFunction({
         // 云函数名称
         name: 'updateTravel',
@@ -28,17 +27,8 @@ Page({
             showCancel: false,
             success: function (res) {
               if (res.confirm) {
-                const time_now = util.formatTime(new Date());
-                console.log(time_now)
-                wx.cloud.callFunction({
-                  name: 'addMessage',
-                  // 传给云函数的参数
-                  data: {
-                    'content': '加入行程成功',
-                    'dest_id': app.globalData.openid,
-                    'source_id': '',
-                    'time': time_now
-                  }
+                wx.navigateBack({
+                  delta: 1
                 })
               }
             }
@@ -47,30 +37,17 @@ Page({
         fail: console.error
       })
     }
-    else if (app.globalData.openid == this.data.queryResult.create_id){
+    else{
       wx.showModal({
-        content: '您是发起人无法重复加入',
+        content: '您已加入',
         showCancel: false,
-        // success(res) {
-        //   if (res.confirm) {
-        //     wx.navigateBack({
-        //       delta: 0
-        //     })
-        //   }
-        // }
-      });
-    }
-    else {
-      wx.showModal({
-        content: '不要重复加入',
-        showCancel: false,
-        // success(res) {
-        //   if (res.confirm) {
-        //     wx.navigateBack({
-        //       delta: 0
-        //     })
-        //   } 
-        // }       
+        success(res) {
+          if (res.confirm) {
+            wx.navigateBack({
+              delta: 0
+            })
+          } 
+        }       
       });
     }
   },
@@ -85,23 +62,6 @@ Page({
       createName: "",
       openid: app.globalData.openid
     }) 
-    
-
-
-    
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
     const db = wx.cloud.database()
     // 查询当前用户所有的 counters
     db.collection('travel_info').where({
@@ -109,8 +69,8 @@ Page({
     }).get({
       success: res => {
         this.setData({
-          queryResult: res.data[0],
-          createId: res.data[0].create_id,
+          queryResult:res.data[0],
+          createId:res.data[0].create_id,  
           //appendList:res.data[0].append_list        
         })
         db.collection('user').where({
@@ -130,7 +90,7 @@ Page({
             console.error('[数据库] [查询记录] 失败：', err)
           }
         })
-
+        
         for (var attend in this.data.queryResult.attend_list) {
           console.log(this.data.queryResult.attend_list[attend])
           db.collection('user').where({
@@ -151,7 +111,7 @@ Page({
             }
 
           })
-        }
+        }   
         console.log('[数据库] [查询记录] 成功: ', res)
       },
       fail: err => {
@@ -162,7 +122,24 @@ Page({
         console.error('[数据库] [查询记录] 失败：', err)
       }
     })
+    
 
+
+    
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+ 
   },
 
   /**

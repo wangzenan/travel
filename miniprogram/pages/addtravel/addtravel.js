@@ -13,7 +13,6 @@ Page({
     dest:'',
     date:'',
     des:'',
-    attend_list: {},
     
   },
   bindDateChange: function (e) {
@@ -22,7 +21,6 @@ Page({
     })
   },
   createTravel: function(e) {
-    
     // console.log(app.globalData.openid)
     if (this.data.des == '' || this.data.dest == '' || this.data.title == '' || this.data.date == ''){
       wx.showModal({
@@ -36,8 +34,6 @@ Page({
       });
       return
     } else{
-      const dest_now = this.data.dest
-      console.log('dest：',dest_now)
       wx.cloud.callFunction({
         // 云函数名称
         name: 'addtravel',
@@ -48,7 +44,6 @@ Page({
           'dest': this.data.dest,
           'time': this.data.date,
           'title': this.data.title,
-          
         },
         success(res) {
           console.log(res) // 3
@@ -59,8 +54,6 @@ Page({
               if (res.confirm) {
                 const time_now = util.formatTime(new Date());
                 console.log(time_now)
-                
-
                 wx.cloud.callFunction({
                   name: 'addMessage',
                   // 传给云函数的参数
@@ -68,8 +61,7 @@ Page({
                     'content': '创建行程成功',
                     'dest_id': app.globalData.openid,
                     'source_id': '',
-                    'time': time_now,
-                    'dest': dest_now,
+                    'time': time_now
                   }
                 })
 

@@ -1,1 +1,20 @@
 /* miniprogram/pages/message/message.wxss */
+.circle{
+ 
+    width: 70px;
+    height: 70px;
+    border: 0 solid #fff;
+    border-radius: 250px; 
+   font-size:0;
+   position:fixed;
+  bottom:0;
+  display:flex;
+  justify-content:center;
+}
+.image{
+  top: 20rpx;
+  margin-left: -25rpx;
+  display: flex;
+  width: 135rpx;
+  height: 135rpx;
+}
