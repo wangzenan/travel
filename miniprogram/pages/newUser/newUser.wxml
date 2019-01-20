@@ -24,4 +24,4 @@
   <input class="right"  focus="{{focus}}"
   name="intro" bindinput='introinput'></input>
 </view>
-<button wx:if="{{canIUse}}" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">授权登录</button>
+<button wx:if="{{canIUse}}" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">完成信息</button>

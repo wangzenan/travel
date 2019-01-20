@@ -17,6 +17,20 @@ Page({
     this.setData({
       userid: app.globalData.openid
     })
+    
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
     const db = wx.cloud.database()
     db.collection('massage').where({
       dest_id: this.data.userid
@@ -36,20 +50,6 @@ Page({
         console.error('[数据库] [查询记录] 失败：', err)
       }
     })
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
   },
 
   /**
