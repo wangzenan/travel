@@ -30,7 +30,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    
+
     const db = wx.cloud.database()
     db.collection('massage').where({
       dest_id: this.data.userid

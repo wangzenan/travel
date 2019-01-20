@@ -32,7 +32,9 @@ Page({
         }
       });
       return
-    } else {
+
+    } else{
+
       const dest_now = this.data.dest
       wx.cloud.callFunction({
         // 云函数名称
