@@ -17,28 +17,22 @@
             </view>
             <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" bindtap="hideInput">取消</view>
         </view>
-        <view class="weui-cells searchbar-result" wx:if="{{inputVal.length > 0}}">
-            <navigator url="" class="weui-cell" hover-class="weui-cell_active">
+
+
+
+        <view class="weui-cells searchbar-result" wx:if="{{inputVal.length > 0}}"   >
+            <navigator url="/pages/travelDetail/travelDetail?id={{item._id}}" class="weui-cell" hover-class="weui-cell_active" wx:for="{{searchResult}}">
                 <view class="weui-cell__bd">
-                    <view>实时搜索文本</view>
+                    <view>{{item.title}}</view>
                 </view>
             </navigator>
-            <navigator url="" class="weui-cell" hover-class="weui-cell_active">
-                <view class="weui-cell__bd">
-                    <view>实时搜索文本</view>
-                </view>
-            </navigator>
-            <navigator url="" class="weui-cell" hover-class="weui-cell_active">
-                <view class="weui-cell__bd">
-                    <view>实时搜索文本</view>
-                </view>
-            </navigator>
-            <navigator url="" class="weui-cell" hover-class="weui-cell_active">
-                <view class="weui-cell__bd">
-                    <view>实时搜索文本</view>
-                </view>
-            </navigator>
+            
+
         </view>
+
+
+
+
         <view class="weui-panel weui-panel_access">
             <view class="weui-panel__hd" >精选行程</view>
             <view class="weui-panel__bd" >

@@ -1,5 +1,7 @@
+// miniprogram/pages/travelDetail/travelDetail.js
 const app = getApp();
 var util = require('../../utils/utils.js');
+
 Page({
 
   /**
@@ -32,51 +34,67 @@ Page({
         }
       });
       return
-
-    } else{
-
-      const dest_now = this.data.dest
-      wx.cloud.callFunction({
-        // 云函数名称
-        name: 'addtravel',
-        // 传给云函数的参数
-        data: {
-          'create_id': app.globalData.openid,
-          'des': this.data.des,
-          'dest': this.data.dest,
-          'time': this.data.date,
-          'title': this.data.title,
-        },
-        success(res) {
-          console.log(res) // 3
-          wx.showModal({
-            content: '创建成功',
-            showCancel: false,
-            success: function (res) {
-              if (res.confirm) {
-                const time_now = util.formatTime(new Date());
-                console.log(time_now)
-                wx.cloud.callFunction({
-                  name: 'addMessage',
-                  // 传给云函数的参数
-                  data: {
-                    'content': '创建行程成功',
-                    'dest_id': app.globalData.openid,
-                    'source_id': '',
-                    'time': time_now,
-                    'dest': dest_now
-                  }
-                })
-
-                wx.navigateBack({
-                  delta: 1
-                })
-              }
-            }
-          });
-        },
-        fail: console.error
+    } else {
+      const db = wx.cloud.database()
+      db.collection('user').where({
+        openid: app.globalData.openid
       })
+        .get({
+          success(res) {
+            console.log(res.data)
+            if (res.data.length == 0) {
+              wx.navigateTo({
+                url: '/pages/newUser/newUser',
+              })
+            } else {
+              const dest_now = this.data.dest
+              wx.cloud.callFunction({
+                // 云函数名称
+                name: 'addtravel',
+                // 传给云函数的参数
+                data: {
+                  'create_id': app.globalData.openid,
+                  'des': this.data.des,
+                  'dest': this.data.dest,
+                  'time': this.data.date,
+                  'title': this.data.title,
+                },
+                success(res) {
+                  console.log(res) // 3
+                  wx.showModal({
+                    content: '创建成功',
+                    showCancel: false,
+                    success: function (res) {
+                      if (res.confirm) {
+                        const time_now = util.formatTime(new Date());
+                        console.log(time_now)
+                        wx.cloud.callFunction({
+                          name: 'addMessage',
+                          // 传给云函数的参数
+                          data: {
+                            'content': '创建行程成功',
+                            'dest_id': app.globalData.openid,
+                            'source_id': '',
+                            'time': time_now,
+                            'dest': dest_now
+                          }
+                        })
+
+                        wx.navigateBack({
+                          delta: 1
+                        })
+                      }
+                    }
+                  });
+                },
+                fail: console.error
+              })
+            }
+
+          }
+        })
+
+
       console.log("asfaxxcaf")
 
     }

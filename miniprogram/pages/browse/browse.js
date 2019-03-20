@@ -7,19 +7,22 @@ Page({
    */
   data: {
     inputShowed: false,
-    inputVal: "",
+    inputVal: " ",
     step: 1,
     counterId: '',
     openid: '',
     count: null,
     queryResult: [],
+    searchResult:[]
   },
   handleClicks: function() {
     wx.navigateTo({
       url: '/pages/addtravel/addtravel',
     })
-  }
- ,
+  },
+
+
+ 
 
   showInput: function () {
     this.setData({
@@ -41,6 +44,31 @@ Page({
     this.setData({
       inputVal: e.detail.value
     });
+    console.log(this.data.inputVal)
+    const db = wx.cloud.database()
+    const travelInfo = db.collection('travel_info')
+    travelInfo.where({
+      "title": db.RegExp({
+        regexp: this.data.inputVal,
+        options: 'i',
+      })
+    }).get({
+      success: res => {
+        this.setData({
+
+          searchResult: res.data
+        })
+        console.log('[数据库] [查询记录] 成功: ', res,this.data.searchResult)
+      },
+      fail: err => {
+        wx.showToast({
+          icon: 'none',
+          title: '查询记录失败'
+        })
+        console.error('[数据库] [查询记录] 失败：', err)
+      }
+    })
+    
   },
 
   /**
@@ -55,6 +83,32 @@ Page({
    */
   onReady: function () {
 
+  },
+
+  travelSearch: function(){
+    const db = wx.cloud.database()
+    const travelInfo = db.collection('travel_info')
+    travelInfo.where({
+      "title": db.RegExp({
+        regexp: this.data.inputVal,
+        options: 'i',
+      })
+    }).get({
+      success: res => {
+        this.setData({
+          
+          searchResult: res.data
+        })
+        console.log('[数据库] [查询记录] 成功: ', res)
+      },
+      fail: err => {
+        wx.showToast({
+          icon: 'none',
+          title: '查询记录失败'
+        })
+        console.error('[数据库] [查询记录] 失败：', err)
+      }
+    })
   },
 
   /**
@@ -79,6 +133,7 @@ Page({
         console.error('[数据库] [查询记录] 失败：', err)
       }
     })
+    
   },
 
   /**

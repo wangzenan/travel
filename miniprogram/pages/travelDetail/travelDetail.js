@@ -9,62 +9,80 @@ Page({
   data: {
     travelId:"",
     queryResult:[],
-    attendName:[]
+    attendName:[],
+  
   },
   handleClicks: function () {
-    if (app.globalData.openid != this.data.queryResult.create_id && this.data.queryResult.attend_list.indexOf(app.globalData.openid)==-1){
-      const dest_now = this.data.queryResult.dest
-      wx.cloud.callFunction({
-        // 云函数名称
-        name: 'updateTravel',
-        // 传给云函数的参数
-        data: {
-          'openid': app.globalData.openid,
-          'travelId':this.data.travelId
-        },
+    const db = wx.cloud.database()
+    db.collection('user').where({
+      openid: app.globalData.openid
+    })
+      .get({
         success(res) {
-          console.log(res) // 3
-          wx.showModal({
-            content: '加入成功',
-            showCancel: false,
-            success: function (res) {
-              if (res.confirm) {
-                const time_now = util.formatTime(new Date());
-                console.log(time_now)
-                wx.cloud.callFunction({
-                  name: 'addMessage',
-                  // 传给云函数的参数
-                  data: {
-                    'content': '加入行程成功',
-                    'dest_id': app.globalData.openid,
-                    'source_id': '',
-                    'time': time_now,
-                    'dest': dest_now
-                  }
-                })
-
-                wx.navigateBack({
-                  delta: 1
-                })
-              }
-            }
-          });
-        },
-        fail: console.error
+          console.log(res.data)
+          if (res.data.length == 0) {
+            wx.navigateTo({
+              url: '/pages/newUser/newUser',
+            })
+          }        
+        }
       })
-    }
-    else if (app.globalData.openid == this.data.queryResult.create_id){
+    if(app.globalData.openid != this.data.queryResult.create_id && this.data.queryResult.attend_list.indexOf(app.globalData.openid) == -1) {
+
+  const dest_now = this.data.queryResult.dest
+  wx.cloud.callFunction({
+    // 云函数名称
+    name: 'updateTravel',
+    // 传给云函数的参数
+    data: {
+      'openid': app.globalData.openid,
+      'travelId': this.data.travelId
+    },
+    success(rres) {
+      console.log(rres) // 3
       wx.showModal({
-        content: '您是创始人无法加入',
+        content: '加入成功',
         showCancel: false,
+        success: function (rres) {
+          if (rres.confirm) {
+            const time_now = util.formatTime(new Date());
+            console.log(time_now)
+            wx.cloud.callFunction({
+              name: 'addMessage',
+              // 传给云函数的参数
+              data: {
+                'content': '加入行程成功',
+                'dest_id': app.globalData.openid,
+                'source_id': '',
+                'time': time_now,
+                'dest': dest_now
+              }
+            })
+
+            // wx.navigateBack({
+            //   delta: 1
+            // })
+          }
+        }
       });
-    }
-    else{
-      wx.showModal({
-        content: '请勿重复加入',
-        showCancel: false,    
-      });
-    }
+    },
+    fail: console.error
+  })
+}
+            else if (app.globalData.openid == this.data.queryResult.create_id) {
+  wx.showModal({
+    content: '您是创始人无法加入',
+    showCancel: false,
+  });
+}
+else {
+  wx.showModal({
+    content: '请勿重复加入',
+    showCancel: false,
+  });
+}
+          
+
   },
 
   /**
@@ -77,11 +95,7 @@ Page({
       createName: "",
       openid: app.globalData.openid
     }) 
-    
-    
-    
-
-
+   
     
   },
 
@@ -147,6 +161,7 @@ Page({
 
           })
         }
+
         console.log('[数据库] [查询记录] 成功: ', res)
       },
       fail: err => {
@@ -157,6 +172,7 @@ Page({
         console.error('[数据库] [查询记录] 失败：', err)
       }
     })
+    
   },
 
   /**

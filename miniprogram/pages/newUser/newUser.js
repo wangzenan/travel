@@ -133,9 +133,14 @@ Page({
             content: '添加成功',
             showCancel: false,
             success: function (res) {
+              // if (res.confirm) {
+              //   wx.navigateBack({
+              //     delta: 1
+              //   })
+              // }
               if (res.confirm) {
-                wx.navigateBack({
-                  delta: 1
+                wx.switchTab({
+                  url: "/pages/myInfo/myInfo",
                 })
               }
             }
