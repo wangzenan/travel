@@ -1,12 +1,12 @@
 /* miniprogram/pages/browse/browse.wxss */
 .circle{
  
-    width: 70px;
-    height: 70px;
-    border: 0 solid #fff;
-    border-radius: 250px; 
-   font-size:0;
-   position:fixed;
+  width: 70px;
+  height: 70px;
+    /* border: 0 solid #fff; */
+  border-radius: 250px; 
+  font-size:0;
+  position:fixed;
   bottom:0;
   display:flex;
   justify-content:center;
@@ -17,6 +17,22 @@
   display: flex;
   width: 135rpx;
   height: 135rpx;
+}
+
+.add_icon{
+
+  position:fixed;
+
+  width:70px;
+
+  height:70px;
+
+  bottom:30px;
+
+  right:20px;
+
+  background-origin:#33728dff;
+
 }
 .searchbar-result{
     margin-top: 0;

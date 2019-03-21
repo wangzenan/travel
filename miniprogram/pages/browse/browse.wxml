@@ -53,10 +53,13 @@
                     <view class="weui-cell__ft weui-cell__ft_in-access"></view>
                 </view>
             </view>
-          <button  type="handleClicks" catchtap="handleClicks" class="circle" hover-class="plus-hover">
+          <!-- <button  type="handleClicks" catchtap="handleClicks" class="circle" hover-class="plus-hover">
           
-            <image mode='aspectFill' src='/pages/images/new.png' plain='true' class='image'></image>
-          </button>
+            <image mode='aspectFill' src='/pages/images/new1.png' plain='true' class='image'></image>
+          </button> -->
+          <view bindtap='handleClicks'>
+            <image class="add_icon" src="/pages/images/new1.png"></image>
+          </view>
         </view>
      
 
