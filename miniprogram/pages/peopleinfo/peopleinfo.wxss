@@ -1,0 +1,17 @@
+/* miniprogram/pages/peopleinfo/peopleinfo.wxss */
+.item{
+  height: 100rpx;
+  background-color: #fff;
+  display: flex;
+}
+.left{
+  display: flex;
+  justify-content: flex-start;
+  flex-grow: 1;
+}
+.right{
+  display: flex;
+  justify-content: flex-end;
+  flex-grow: 1;
+  color: #ccc;
+}

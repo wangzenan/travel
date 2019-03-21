@@ -110,6 +110,9 @@ else {
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    this.setData({
+      attendName:[]
+    }) 
     const db = wx.cloud.database()
     // 查询当前用户所有的 counters
     db.collection('travel_info').where({

@@ -1,0 +1,46 @@
+/* miniprogram/pages/histour/histour.wxss */
+.circle{
+ 
+  width: 70px;
+  height: 70px;
+    /* border: 0 solid #fff; */
+  border-radius: 250px; 
+  font-size:0;
+  position:fixed;
+  bottom:0;
+  display:flex;
+  justify-content:center;
+}
+.image{
+  top: 20rpx;
+  margin-left: -25rpx;
+  display: flex;
+  width: 135rpx;
+  height: 135rpx;
+}
+
+.add_icon{
+
+  position:fixed;
+
+  width:70px;
+
+  height:70px;
+
+  bottom:30px;
+
+  right:20px;
+
+  background-origin:#33728dff;
+
+}
+.searchbar-result{
+    margin-top: 0;
+    font-size: 14px;
+}
+.searchbar-result:before{
+    display: none;
+}
+.weui-cell{
+    padding: 12px 15px 12px 35px;
+}

@@ -17,7 +17,10 @@
     "pages/modidetail/modidetail",
     "pages/addtravel/addtravel",
     "pages/newUser/newUser",
-    "pages/addFun/addFun"
+    "pages/addFun/addFun",
+    "pages/histour/histour",
+    "pages/mytour/mytour",
+    "pages/peopleinfo/peopleinfo"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
