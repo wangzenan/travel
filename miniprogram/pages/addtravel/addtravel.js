@@ -38,16 +38,20 @@ Page({
       const db = wx.cloud.database()
       db.collection('user').where({
         openid: app.globalData.openid
-      })
-        .get({
+      }).get({
           success(res) {
             console.log(res.data)
-            if (res.data.length == 0) {
-              wx.navigateTo({
-                url: '/pages/newUser/newUser',
-              })
-            } else {
-              const dest_now = this.data.dest
+            console.log("1111")  
+            // if (res.data.length == 0) {
+              
+            //   wx.navigateTo({
+            //     url: '/pages/newUser/newUser',
+            //   })
+            // } 
+            //else {
+              //console.log("1111")              
+              //const dest_now = this.data.dest
+              //console.log(dest_now)
               wx.cloud.callFunction({
                 // 云函数名称
                 name: 'addtravel',
@@ -60,6 +64,7 @@ Page({
                   'title': this.data.title,
                 },
                 success(res) {
+                  console.log("new")
                   console.log(res) // 3
                   wx.showModal({
                     content: '创建成功',
@@ -76,7 +81,8 @@ Page({
                             'dest_id': app.globalData.openid,
                             'source_id': '',
                             'time': time_now,
-                            'dest': dest_now
+                            //'dest': dest_now
+                            'dest': this.data.dest
                           }
                         })
 
@@ -89,13 +95,14 @@ Page({
                 },
                 fail: console.error
               })
-            }
+            //}
 
           }
         })
 
 
-      console.log("asfaxxcaf")
+      console.log("end")
+      
 
     }
 
@@ -126,31 +133,31 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.setData({
-      travelId: options.id,
-      queryResult: []
-    })
-    const db = wx.cloud.database()
-    // 查询当前用户所有的 counters
-    db.collection('travel_info').where({
-      _id: this.data.travelId
-    }).get({
-      success: res => {
-        this.setData({
-          //queryResult: JSON.stringify(res.data, null, 2)
-          queryResult: res.data[0]
-          //title:res.data.title
-        })
-        console.log('[数据库] [查询记录] 成功: ', res)
-      },
-      fail: err => {
-        wx.showToast({
-          icon: 'none',
-          title: '查询记录失败'
-        })
-        console.error('[数据库] [查询记录] 失败：', err)
-      }
-    })
+    // this.setData({
+    //   travelId: options.id,
+    //   queryResult: []
+    // })
+    // const db = wx.cloud.database()
+    // // 查询当前用户所有的 counters
+    // db.collection('travel_info').where({
+    //   _id: this.data.travelId
+    // }).get({
+    //   success: res => {
+    //     this.setData({
+    //       //queryResult: JSON.stringify(res.data, null, 2)
+    //       queryResult: res.data[0]
+    //       //title:res.data.title
+    //     })
+    //     console.log('[数据库] [查询记录] 成功: ', res)
+    //   },
+    //   fail: err => {
+    //     wx.showToast({
+    //       icon: 'none',
+    //       title: '查询记录失败'
+    //     })
+    //     console.error('[数据库] [查询记录] 失败：', err)
+    //   }
+    // })
   },
 
 

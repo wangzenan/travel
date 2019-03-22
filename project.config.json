@@ -10,7 +10,7 @@
 	},
 	"appid": "wx0e247236e1f2f06d",
 	"projectname": "travel",
-	"libVersion": "2.2.5",
+	"libVersion": "2.6.2",
 	"condition": {
 		"search": {
 			"current": -1,

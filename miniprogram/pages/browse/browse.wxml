@@ -57,7 +57,7 @@
           
             <image mode='aspectFill' src='/pages/images/new1.png' plain='true' class='image'></image>
           </button> -->
-          <view bindtap='handleClicks'>
+          <view catchtap='handleClicks'>
             <image class="add_icon" src="/pages/images/new1.png"></image>
           </view>
         </view>
